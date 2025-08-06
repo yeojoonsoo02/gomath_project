@@ -1,0 +1,77 @@
+{
+  "expo": {
+    "name": "GoMath",
+    "slug": "gomath-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#3b82f6"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gomath.mobile",
+      "buildNumber": "1",
+      "config": {
+        "usesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#3b82f6"
+      },
+      "package": "com.gomath.mobile",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "WRITE_EXTERNAL_STORAGE",
+        "READ_EXTERNAL_STORAGE",
+        "INTERNET"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "앱에서 수학 문제를 스캔하기 위해 카메라 권한이 필요합니다."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "문제 이미지를 선택하기 위해 사진 접근 권한이 필요합니다."
+        }
+      ],
+      [
+        "@react-native-async-storage/async-storage",
+        {
+          "useFrameworkShims": true
+        }
+      ]
+    ],
+    "scheme": "gomath",
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "your-project-id-here"
+      }
+    }
+  }
+}
