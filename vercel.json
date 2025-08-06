@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "projects": [
-    {
-      "name": "gomath-web",
-      "source": "apps/web",
-      "framework": "nextjs"
-    }
-  ],
   "builds": [
     {
       "src": "apps/web/package.json",
