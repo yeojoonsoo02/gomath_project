@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   experimental: {
-    transpilePackages: ['@gomath/shared', '@gomath/ui'],
+    appDir: true,
   },
   images: {
     domains: ['localhost'],

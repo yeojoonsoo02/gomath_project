@@ -1,0 +1,20 @@
+[build]
+  base = "apps/web"
+  publish = "apps/web/out"
+  command = "npm run build && npm run export"
+
+[build.environment]
+  NEXT_PUBLIC_API_URL = "https://gomath-api.onrender.com/api"
+  NEXT_PUBLIC_GRAPHQL_URL = "https://gomath-api.onrender.com/graphql"
+
+[[redirects]]
+  from = "/api/*"
+  to = "https://gomath-api.onrender.com/api/:splat"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"

@@ -5,7 +5,7 @@
     "packages/*",
     "apps/*"
   ],
-  "packageManager": "npm@10.2.4",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "turbo run dev --parallel",
     "build": "turbo run build",

@@ -1,10 +1,38 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Search, BookOpen, TrendingUp, Users, Star, ChevronRight } from 'lucide-react';
 
 export default function HomePage() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [apiStatus, setApiStatus] = useState<'loading' | 'success' | 'error'>('loading');
+  const [problemsCount, setProblemsCount] = useState(0);
+
+  // API 연결 테스트
+  useEffect(() => {
+    const testApiConnection = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/health`);
+        if (response.ok) {
+          setApiStatus('success');
+          
+          // 문제 개수 가져오기
+          const problemsResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api'}/problems/search?limit=1`);
+          if (problemsResponse.ok) {
+            const data = await problemsResponse.json();
+            setProblemsCount(data.pagination?.total || 0);
+          }
+        } else {
+          setApiStatus('error');
+        }
+      } catch (error) {
+        console.error('API 연결 실패:', error);
+        setApiStatus('error');
+      }
+    };
+
+    testApiConnection();
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50">
@@ -17,6 +45,24 @@ export default function HomePage() {
                 <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
                   GoMath
                 </h1>
+              </div>
+              {/* API 상태 표시 */}
+              <div className="ml-4">
+                {apiStatus === 'loading' && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">
+                    API 연결 중...
+                  </span>
+                )}
+                {apiStatus === 'success' && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-green-100 text-green-800">
+                    ✅ API 연결됨 ({problemsCount.toLocaleString()}개 문제)
+                  </span>
+                )}
+                {apiStatus === 'error' && (
+                  <span className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-red-100 text-red-800">
+                    ❌ API 연결 실패
+                  </span>
+                )}
               </div>
             </div>
             <nav className="hidden md:block">
